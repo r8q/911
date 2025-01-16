@@ -1,127 +1,88 @@
 body {
-  font-family: 'Arial', sans-serif;
-  background-color: #F4F4F9; /* Hafif gri */
-  color: #333333; /* Koyu gri metin */
-  margin: 0;
-  padding: 20px;
-}
-
-.container {
-  max-width: 800px;
-  margin: 0 auto;
-  padding: 20px;
-  background-color: #FFFFFF; /* Beyaz arka plan */
-  border-radius: 15px;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-}
-
-.form-group {
-  margin-bottom: 15px;
-}
-
-.form-group label {
-  display: block;
-  margin-bottom: 5px;
-  font-weight: bold;
-}
-
-.form-group input,
-.form-group select,
-.form-group textarea {
-  width: 100%;
-  padding: 10px;
-  border: 1px solid #CCCCCC;
-  border-radius: 5px;
-  box-sizing: border-box;
-}
-
-.form-group textarea {
-  resize: vertical;
-}
-
-.form-group button {
-  padding: 10px 20px;
-  background-color: #007BFF;
-  color: #FFFFFF;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.form-group button:hover {
-  background-color: #0056b3;
-}
-
-.item {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 15px;
-  margin-bottom: 10px;
-  background-color: #EEEEEE; /* Çok açık gri */
-  border-radius: 10px;
-  transition: background-color 0.3s ease, box-shadow 0.3s ease;
-}
-
-.item strong {
-  font-size: 1.2em;
-}
-
-.item .icon {
-  margin-left: 10px;
-  font-size: 1.5em;
-}
-
-.item button {
-  padding: 5px 10px;
-  background-color: #DC3545;
-  color: #FFFFFF;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.item button:hover {
-  background-color: #c82333;
-}
-
-.glow {
-  background-color: yellow;
-}
-
-#info {
-  margin-top: 20px;
-  padding: 10px;
-  background-color: #FFFFE0; /* Açık sarı */
-  border: 1px solid #CCCCCC;
-  border-radius: 5px;
-  display: none;
-}
-
-/* Responsive Tasarım */
-@media (max-width: 600px) {
-  .container {
-    padding: 10px;
+    font-family: 'Georgia', serif; /* Elegant font choice */
+    background-color: #000000; /* Black background */
+    color: #FFFFFF; /* White text color for better contrast */
   }
-
-  .form-group input,
-  .form-group select,
-  .form-group textarea {
-    padding: 8px;
+  
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
   }
-
-  .form-group button {
-    padding: 8px 16px;
+  
+  th, td {
+    border: 2px solid #8B0000; /* Dark red borders */
+    padding: 12px;
+    text-align: left;
   }
-
-  .item {
-    flex-direction: column;
-    align-items: flex-start;
+  
+  th {
+    background-color: #8B0000; /* Dark red for headers */
+    color: #FFFFFF;
+    font-weight: bold;
   }
-
-  .item button {
-    margin-top: 10px;
+  
+  tr:nth-child(even) {
+    background-color: #5A0000; /* Lighter shade of dark red for even rows */
   }
-}
+  
+  tr:hover {
+    background-color: #3C0000; /* Darker shade of dark red on hover */
+  }
+  
+  .details {
+    color: #FF4500; /* Bright red for details */
+    font-style: italic;
+  }
+  
+  .highlight {
+    background-color: #8B0000; /* Dark red for highlighted text */
+    color: #FFFFFF;
+    padding: 2px 5px;
+    border-radius: 4px;
+  }
+  
+  .burak { background-color: #8B0000; }
+  .yusuf { background-color: #7B0000; }
+  .taha { background-color: #6B0000; }
+  .tansu { background-color: #5B0000; }
+  .yagmur { background-color: #4B0000; }
+  .burcu { background-color: #3B0000; }
+  .zeynep { background-color: #2B0000; }
+  
+  /* Responsive design */
+  @media screen and (max-width: 600px) {
+    table, thead, tbody, th, td, tr { 
+      display: block; 
+    }
+    
+    thead tr { 
+      position: absolute;
+      top: -9999px;
+      left: -9999px;
+    }
+    
+    tr { margin-bottom: 10px; }
+    
+    td { 
+      border: none;
+      position: relative;
+      padding-left: 50%; 
+    }
+    
+    td::before { 
+      position: absolute;
+      top: 6px;
+      left: 6px;
+      width: 45%;
+      padding-right: 10px;
+      white-space: nowrap;
+      content: attr(data-label);
+      font-weight: bold;
+      color: #FFFFFF; /* White text for labels */
+    }
+    
+    .details::before { content: 'Detaylar: '; }
+    .highlight::before { content: ''; }
+  }
