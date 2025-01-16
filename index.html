@@ -33,105 +33,13 @@
     transition: background-color 0.3s ease, box-shadow 0.3s ease;
   }
 
-  .item:hover {
-    background-color: #D84040; /* Kırmızı */
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  }
-
-  .item strong {
-    font-size: 1.1em;
-    color: #1D1616; /* Koyu kahverengi */
-  }
-
-  .details {
-    flex: 1;
-    margin-left: 10px;
-    color: #333333; /* Koyu gri */
-  }
-
-  .icon {
-    margin-left: 5px;
-  }
-
-  .action-buttons {
-    display: flex;
-    gap: 10px;
-  }
-
-  .action-buttons button {
-    padding: 5px 10px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-  }
-
-  .edit-button {
-    background-color: #FFA500; /* Turuncu */
-    color: #FFFFFF;
-  }
-
-  .delete-button {
-    background-color: #FF0000; /* Kırmızı */
-    color: #FFFFFF;
-  }
-
-  #entry-panel {
-    margin-top: 20px;
-    padding: 20px;
-    border: 1px solid #1D1616;
-    border-radius: 10px;
-    background-color: #FFFFFF;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-  }
-
-  #entry-panel input, #entry-panel textarea, #entry-panel select {
-    width: calc(100% - 22px);
-    padding: 10px;
-    margin-bottom: 10px;
-    border: 1px solid #D84040;
-    border-radius: 5px;
-  }
-
-  #entry-panel select {
-    height: auto; /* Seçeneklerin görünmesi için */
-  }
-
-  #entry-panel button {
-    padding: 10px 20px;
-    background-color: #8E1616;
-    color: #FFFFFF;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-  }
-
-  #entry-panel button:hover {
-    background-color: #1D1616;
-  }
-
-  #info {
-    margin-top: 20px;
-    padding: 10px;
-    border: 1px solid #1D1616;
-    border-radius: 5px;
-    background-color: #F4F4F9;
-    display: none;
-  }
-
   .glow {
-    box-shadow: 0 0 10px #4A4A4A;
+    background-color: yellow;
   }
 </style>
 </head>
 <body>
   <div class="container">
-    <!-- Başlangıçta boş -->
-  </div>
-
-  <div id="info"></div>
-
-  <div id="entry-panel">
-    <h3>Yeni Kişi Ekle</h3>
     <input type="text" id="name" placeholder="Kişi Adı">
     <select id="role">
       <option value="🧑‍💼">Koordinatör</option>
@@ -149,8 +57,13 @@
     <button onclick="addItem()">Ekle</button>
   </div>
 
+  <div id="info" style="display: none;"></div>
+
   <script>
-    // Yeni öğe ekleme işlevi
+    document.addEventListener('DOMContentLoaded', () => {
+      loadItems();
+    });
+
     function addItem() {
       const name = document.getElementById('name').value;
       const role = document.getElementById('role').value;
@@ -166,94 +79,122 @@
 
         newItem.innerHTML = `
           <strong>${name} <span class="icon">${role}</span></strong>
-          <div class="details">${details}</div>
-          <div class="action-buttons">
-            <button class="edit-button" onclick="editItem(this)">Düzenle</button>
-            <button class="delete-button" onclick="deleteItem(this)">Sil</button>
-          </div>
+          <p>${details}</p>
+          <p>Ortak Çalıştığı Kişiler: ${selectedColleagues}</p>
+          <button onclick="editItem(this)">Düzenle</button>
+          <button onclick="deleteItem(this)">Sil</button>
         `;
 
         container.appendChild(newItem);
 
-        // Yeni eklenen kişiyi seçeneklere ekle
-        const newOption = document.createElement('option');
-        newOption.value = name;
-        newOption.textContent = name;
-        colleaguesSelect.appendChild(newOption);
+        newItem.addEventListener('mouseover', mouseOverHandler);
+        newItem.addEventListener('mouseout', mouseOutHandler);
 
-        // Formu temizle
-        document.getElementById('name').value = '';
-        document.getElementById('role').value = '';
-        document.getElementById('details').value = '';
-
-        // Glow efekti ekle
-        newItem.addEventListener('mouseover', () => {
-          newItem.classList.add('glow');
-          const info = document.getElementById('info');
-          info.textContent = `${name} toplamda ${selectedColleagues.split(', ').length} kişiyle beraber çalışıyor. Ortak çalıştığı kişiler: ${selectedColleagues}`;
-          info.style.display = 'block';
+        newItem.addEventListener('remove', () => {
+          newItem.removeEventListener('mouseover', mouseOverHandler);
+          newItem.removeEventListener('mouseout', mouseOutHandler);
         });
 
-        newItem.addEventListener('mouseout', () => {
-          newItem.classList.remove('glow');
-          const info = document.getElementById('info');
-          info.style.display = 'none';
-        });
-      } else {
-        alert('Lütfen tüm alanları doldurun.');
+        saveItems();
       }
     }
 
-    // Öğeyi silme işlevi
-    function deleteItem(button) {
-      const item = button.closest('.item');
-      const name = item.querySelector('strong').textContent.split(' ')[0] + ' ' + item.querySelector('strong').textContent.split(' ')[1];
-      const colleaguesSelect = document.getElementById('colleagues');
-      Array.from(colleaguesSelect.options).forEach(option => {
-        if (option.value === name) {
-          option.remove();
-        }
-      });
-      item.remove();
+    function mouseOverHandler(event) {
+      const item = event.currentTarget;
+      item.classList.add('glow');
+      const nameParts = item.querySelector('strong').textContent.split(' ');
+      if (nameParts.length < 3) return;
+      const name = nameParts[0] + ' ' + nameParts[1];
+      const colleaguesText = nameParts.slice(2).join(' ').replace(/[()]/g, '');
+      const info = document.getElementById('info');
+      if (info) {
+        info.textContent = `${name} toplamda ${colleaguesText.split(', ').length} kişiyle beraber çalışıyor. Ortak çalıştığı kişiler: ${colleaguesText}`;
+        info.style.display = 'block';
+      }
     }
 
-    // Öğeyi düzenleme işlevi
+    function mouseOutHandler(event) {
+      const item = event.currentTarget;
+      item.classList.remove('glow');
+      const info = document.getElementById('info');
+      if (info) {
+        info.style.display = 'none';
+      }
+    }
+
     function editItem(button) {
-      const item = button.closest('.item');
-      const name = item.querySelector('strong').textContent.split(' ')[0] + ' ' + item.querySelector('strong').textContent.split(' ')[1];
+      const item = button.parentElement;
+      const name = item.querySelector('strong').textContent.split(' ')[0];
       const role = item.querySelector('.icon').textContent;
-      const details = item.querySelector('.details').textContent;
+      const details = item.querySelector('p').textContent;
+      const colleagues = item.querySelector('p:nth-child(3)').textContent.replace('Ortak Çalıştığı Kişiler: ', '').split(', ');
 
       document.getElementById('name').value = name;
       document.getElementById('role').value = role;
       document.getElementById('details').value = details;
 
-      // Seçenekleri ayarla
       const colleaguesSelect = document.getElementById('colleagues');
-      const colleagues = item.querySelector('strong').textContent.split(' ').slice(2).join(' ').replace('(', '').replace(')', '').split(', ');
       Array.from(colleaguesSelect.options).forEach(option => {
         option.selected = colleagues.includes(option.value);
       });
 
-      // Öğeyi sil
       item.remove();
+      saveItems();
     }
 
-    // Mevcut öğelere glow efekti ekle
-    document.querySelectorAll('.item').forEach(item => {
-      item.addEventListener('mouseover', () => {
-        item.classList.add('glow');
-        const name = item.querySelector('strong').textContent.split(' ')[0] + ' ' + item.querySelector('strong').textContent.split(' ')[1];
-        const colleaguesText = item.querySelector('strong').textContent.split(' ').slice(2).join(' ').replace('(', '').replace(')', '');
-        const info = document.getElementById('info');
-        info.textContent = `${name} toplamda ${colleaguesText.split(', ').length} kişiyle beraber çalışıyor. Ortak çalıştığı kişiler: ${colleaguesText}`;
-        info.style.display = 'block';
-      });
+    function deleteItem(button) {
+      const item = button.parentElement;
+      item.remove();
+      saveItems();
+    }
 
-      item.addEventListener('mouseout', () => {
-        item.classList.remove('glow');
-        const info = document.getElementById('info');
-        info.style.display = 'none';
+    function saveItems() {
+      const items = [];
+      document.querySelectorAll('.item').forEach(item => {
+        const name = item.querySelector('strong').textContent.split(' ')[0];
+        const role = item.querySelector('.icon').textContent;
+        const details = item.querySelector('p').textContent;
+        const colleagues = item.querySelector('p:nth-child(3)').textContent.replace('Ortak Çalıştığı Kişiler: ', '');
+
+        items.push({ name, role, details, colleagues });
+      });
+      localStorage.setItem('items', JSON.stringify(items));
+    }
+
+    function loadItems() {
+      const items = JSON.parse(localStorage.getItem('items')) || [];
+      items.forEach(itemData => {
+        const container = document.querySelector('.container');
+        const newItem = document.createElement('div');
+        newItem.className = 'item';
+
+        newItem.innerHTML = `
+          <strong>${itemData.name} <span class="icon">${itemData.role}</span></strong>
+          <p>${itemData.details}</p>
+          <p>Ortak Çalıştığı Kişiler: ${itemData.colleagues}</p>
+          <button onclick="editItem(this)">Düzenle</button>
+          <button onclick="deleteItem(this)">Sil</button>
+        `;
+
+        container.appendChild(newItem);
+
+        newItem.addEventListener('mouseover', mouseOverHandler);
+        newItem.addEventListener('mouseout', mouseOutHandler);
+
+        newItem.addEventListener('remove', () => {
+          newItem.removeEventListener('mouseover', mouseOverHandler);
+          newItem.removeEventListener('mouseout', mouseOutHandler);
+        });
+      });
+    }
+
+    document.querySelectorAll('.item').forEach(item => {
+      item.addEventListener('mouseover', mouseOverHandler);
+      item.addEventListener('mouseout', mouseOutHandler);
+
+      item.addEventListener('remove', () => {
+        item.removeEventListener('mouseover', mouseOverHandler);
+        item.removeEventListener('mouseout', mouseOutHandler);
       });
     });
   </script>
