@@ -4,43 +4,381 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Liste</title>
-<link rel="stylesheet" href="styles.css">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
+
+  :root {
+    --primary-color: #6366f1;
+    --secondary-color: #818cf8;
+    --success-color: #34d399;
+    --danger-color: #fb7185;
+    --warning-color: #fbbf24;
+    --background-color: #f8fafc;
+    --text-color: #334155;
+    --border-color: #e2e8f0;
+  }
+
+  body {
+    font-family: 'Poppins', sans-serif;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+  }
+
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #FFFFFF; /* Beyaz arka plan */
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  }
+
+  table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    background: #fff;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+    margin: 2rem 0;
+  }
+
+  th {
+    background-color: var(--primary-color);
+    color: white;
+    font-weight: 500;
+    padding: 1rem;
+    text-align: left;
+  }
+
+  td {
+    padding: 1rem;
+    border-bottom: 1px solid var(--border-color);
+  }
+
+  tr:last-child td {
+    border-bottom: none;
+  }
+
+  tr:hover {
+    background-color: #f1f5f9;
+    transition: background-color 0.2s ease;
+  }
+
+  .icon {
+    font-size: 1rem;
+    margin-left: 0.5rem;
+  }
+
+  .action-buttons {
+    display: flex;
+    gap: 0.5rem;
+  }
+
+  .edit-button, .delete-button {
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 6px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  .edit-button {
+    background-color: var(--warning-color);
+    color: white;
+  }
+
+  .delete-button {
+    background-color: var(--danger-color);
+    color: white;
+  }
+
+  .edit-button:hover {
+    background-color: #f59e0b;
+  }
+
+  .delete-button:hover {
+    background-color: #ef4444;
+  }
+
+  #entry-panel {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    padding: 1.5rem;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+    margin: 2rem 0;
+  }
+
+  #entry-panel input,
+  #entry-panel select,
+  #entry-panel button {
+    padding: 0.75rem;
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    font-size: 1rem;
+  }
+
+  #entry-panel button {
+    background-color: var(--primary-color);
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+  }
+
+  #entry-panel button:hover {
+    background-color: var(--secondary-color);
+  }
+
+  #info {
+    margin-top: 20px;
+    padding: 10px;
+    background-color: #ffffe0; /* Açık sarı */
+    border: 1px solid #cccccc;
+    border-radius: 5px;
+    display: none;
+  }
+
+  /* Responsive Tasarım */
+  @media (max-width: 600px) {
+    .container {
+      padding: 10px;
+    }
+  }
+</style>
 </head>
 <body>
   <div class="container">
-    <div class="form-group">
-      <label for="name">Kişi Adı</label>
-      <input type="text" id="name" placeholder="Kişi Adı">
-    </div>
-    <div class="form-group">
-      <label for="role">Rol</label>
-      <select id="role">
-        <option value="🧑‍💼">Koordinatör</option>
-        <option value="📚">Eğitim ve İçerik Yöneticisi</option>
-        <option value="📊">Lojistik ve Organizasyon Yöneticisi</option>
-        <option value="🤝">Proje Destek Koordinatörü</option>
-        <option value="🎥">Video ve Medya Yöneticisi</option>
-        <option value="📞">İletişim ve Halkla İlişkiler Yöneticisi</option>
-        <option value="🎨">Grafik Tasarımcı</option>
-      </select>
-    </div>
-    <div class="form-group">
-      <label for="colleagues">Ortak Çalıştığı Kişiler</label>
-      <select id="colleagues" multiple>
-        <!-- Başlangıçta boş -->
-      </select>
-    </div>
-    <div class="form-group">
-      <label for="details">İş Birliği Detayları</label>
-      <textarea id="details" placeholder="İş Birliği Detayları"></textarea>
-    </div>
-    <div class="form-group">
-      <button onclick="addItem()">Ekle</button>
-    </div>
+    <table>
+      <thead>
+        <tr>
+          <th>Kişi</th>
+          <th>Birlikte Çalışabileceği Kişiler</th>
+          <th>İş Birliği Detayları</th>
+          <th>İşlemler</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="burak">
+          <td><strong>Burak Fidan (Koordinatör) <span class="icon">🧑‍💼</span></strong></td>
+          <td>Tüm ekip</td>
+          <td class="details">Projenin genel yönlendirmesini yapar, nihai kararları alır, sorunların çözümü için liderlik eder, ekip ile sürekli iletişim halindedir. Proje bütçesinin planlanması ve takibini yapar, sponsorluk görüşmelerinde ana rol oynar.</td>
+          <td class="action-buttons">
+            <button class="edit-button" onclick="editRow(this)">Düzenle</button>
+            <button class="delete-button" onclick="deleteRow(this)">Sil</button>
+          </td>
+        </tr>
+        <tr class="yusuf">
+          <td><strong>Yusuf Yıldırım (Eğitim ve İçerik Yöneticisi) <span class="icon">📚</span></strong></td>
+          <td>Tansu Ertürk, Yağmur Geyik, Burcu Söğüt</td>
+          <td class="details">Eğitim materyallerini hazırlar, atölye ve seminerlerin içeriklerini planlar, katılımcılardan geri bildirim toplar ve bu geri bildirimlere göre içerikleri günceller. Eğitim süreçlerinde medya içeriklerinin kullanımını yönetir.</td>
+          <td class="action-buttons">
+            <button class="edit-button" onclick="editRow(this)">Düzenle</button>
+            <button class="delete-button" onclick="deleteRow(this)">Sil</button>
+          </td>
+        </tr>
+        <tr class="taha">
+          <td><strong>Taha Akbaba (Lojistik ve Organizasyon Yöneticisi) <span class="icon">📊</span></strong></td>
+          <td>Zeynep Gündoğan, Tansu Ertürk</td>
+          <td class="details">Etkinlik organizasyonunu yönetir, ulaşım ve konaklama düzenlemelerini yapar, etkinlik mekanlarını seçer ve organize eder. Lojistik süreçlerin sorunsuz ilerlemesi için destek sağlar.</td>
+          <td class="action-buttons">
+            <button class="edit-button" onclick="editRow(this)">Düzenle</button>
+            <button class="delete-button" onclick="deleteRow(this)">Sil</button>
+          </td>
+        </tr>
+        <tr class="tansu">
+          <td><strong>Tansu Ertürk (Proje Destek Koordinatörü) <span class="icon">🤝</span></strong></td>
+          <td>Burak Fidan, Yusuf Yıldırım, Taha Akbaba, Zeynep Gündoğan</td>
+          <td class="details">Ana ekibe ve katılımcılara destek sağlar, çeşitli süreçlerde yardımcı olur, Küçük çaplı sorunlar ve ihtiyaçlar için çözüm üretir.</td>
+          <td class="action-buttons">
+            <button class="edit-button" onclick="editRow(this)">Düzenle</button>
+            <button class="delete-button" onclick="deleteRow(this)">Sil</button>
+          </td>
+        </tr>
+        <tr class="yagmur">
+          <td><strong>Yağmur Geyik (Video ve Medya Yöneticisi) <span class="icon">🎥</span></strong></td>
+          <td>Burcu Söğüt, Zeynep Gündoğan</td>
+          <td class="details">Projenin video içeriklerini çeker ve düzenler, dron çekimlerini yapar, video ve medya stratejisini belirler. Çekim planlamaları ve kalite kontrolünden sorumludur, sosyal medya paylaşımları için görsel içerik hazırlar.</td>
+          <td class="action-buttons">
+            <button class="edit-button" onclick="editRow(this)">Düzenle</button>
+            <button class="delete-button" onclick="deleteRow(this)">Sil</button>
+          </td>
+        </tr>
+        <tr class="zeynep">
+          <td><strong>Zeynep Gündoğan (İletişim ve Halkla İlişkiler Yöneticisi) <span class="icon">📞</span></strong></td>
+          <td>Taha Akbaba, Tansu Ertürk, Yağmur Geyik</td>
+          <td class="details">Kültürel etkinliklerin planlanmasını, uygun mekanların belirlenmesini ve bu gezilerin koordinasyonunu üstlenir. Katılımcılarla kültürel deneyimlerin paylaşımını sağlar, sosyal medya etkileşimini artırır.</td>
+          <td class="action-buttons">
+            <button class="edit-button" onclick="editRow(this)">Düzenle</button>
+            <button class="delete-button" onclick="deleteRow(this)">Sil</button>
+          </td>
+        </tr>
+        <tr class="burcu">
+          <td><strong>Burcu Söğüt (Grafik Tasarımcı) <span class="icon">🎨</span></strong></td>
+          <td>Yusuf Yıldırım, Yağmur Geyik</td>
+          <td class="details">Proje için gerekli grafik tasarımları yapar, afiş, broşür ve diğer tanıtım materyallerini hazırlar. Sosyal medya ve web sitesi için görsel içerikler üretir.</td>
+          <td class="action-buttons">
+            <button class="edit-button" onclick="editRow(this)">Düzenle</button>
+            <button class="delete-button" onclick="deleteRow(this)">Sil</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <p><strong>Genel Not:</strong> Tüm ekip üyeleri proje bütçesine katkı sağlar ve sponsorluk görüşmelerinde rol alır.</p>
   </div>
 
   <div id="info"></div>
 
-  <script type="module" src="scripts.js"></script>
+  <div id="entry-panel">
+    <h3>Yeni Kişi Ekle</h3>
+    <input type="text" id="name" placeholder="Kişi Adı">
+    <select id="role">
+      <option value="🧑‍💼">Koordinatör</option>
+      <option value="📚">Eğitim ve İçerik Yöneticisi</option>
+      <option value="📊">Lojistik ve Organizasyon Yöneticisi</option>
+      <option value="🤝">Proje Destek Koordinatörü</option>
+      <option value="🎥">Video ve Medya Yöneticisi</option>
+      <option value="📞">İletişim ve Halkla İlişkiler Yöneticisi</option>
+      <option value="🎨">Grafik Tasarımcı</option>
+    </select>
+    <select id="colleagues" multiple>
+      <option value="Burak Fidan">Burak Fidan</option>
+      <option value="Yusuf Yıldırım">Yusuf Yıldırım</option>
+      <option value="Taha Akbaba">Taha Akbaba</option>
+      <option value="Tansu Ertürk">Tansu Ertürk</option>
+      <option value="Yağmur Geyik">Yağmur Geyik</option>
+      <option value="Zeynep Gündoğan">Zeynep Gündoğan</option>
+      <option value="Burcu Söğüt">Burcu Söğüt</option>
+    </select>
+    <textarea id="details" placeholder="İş Birliği Detayları"></textarea>
+    <button onclick="addItem()">Ekle</button>
+  </div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+  <script>
+    // Yeni öğe ekleme işlevi
+    function addItem() {
+      const name = document.getElementById('name').value;
+      const role = document.getElementById('role').value;
+      const colleaguesSelect = document.getElementById('colleagues');
+      const details = document.getElementById('details').value;
+
+      const selectedColleagues = Array.from(colleaguesSelect.selectedOptions).map(option => option.value).join(', ');
+
+      if (name && role && details) {
+        // Aynı kişiyi birden fazla kez eklemeyi önle
+        const existingItems = document.querySelectorAll('.item strong');
+        for (let item of existingItems) {
+          if (item.textContent.includes(name)) {
+            alert('Bu kişi zaten eklenmiş.');
+            return;
+          }
+        }
+
+        const container = document.querySelector('.container tbody');
+        const newItem = document.createElement('tr');
+        newItem.className = 'item';
+
+        newItem.innerHTML = `
+          <td><strong>${name} <span class="icon">${role}</span></strong></td>
+          <td>${selectedColleagues}</td>
+          <td class="details">${details}</td>
+          <td class="action-buttons">
+            <button class="edit-button" onclick="editRow(this)">Düzenle</button>
+            <button class="delete-button" onclick="deleteRow(this)">Sil</button>
+          </td>
+        `;
+
+        container.appendChild(newItem);
+
+        // Yeni eklenen kişiyi seçeneklere ekle
+        const newOption = document.createElement('option');
+        newOption.value = name;
+        newOption.textContent = name;
+        colleaguesSelect.appendChild(newOption);
+
+        // Formu temizle
+        document.getElementById('name').value = '';
+        document.getElementById('role').value = '';
+        document.getElementById('details').value = '';
+
+        // Glow efekti ekle
+        newItem.addEventListener('mouseover', () => {
+          newItem.classList.add('glow');
+          const info = document.getElementById('info');
+          info.textContent = `${name} toplamda ${selectedColleagues.split(', ').length} kişiyle beraber çalışıyor. Ortak çalıştığı kişiler: ${selectedColleagues}`;
+          info.style.display = 'block';
+        });
+
+        newItem.addEventListener('mouseout', () => {
+          newItem.classList.remove('glow');
+          const info = document.getElementById('info');
+          info.style.display = 'none';
+        });
+      } else {
+        alert('Lütfen tüm alanları doldurun.');
+      }
+    }
+
+    // Öğeyi silme işlevi
+    function deleteRow(button) {
+      const row = button.closest('tr');
+      const name = row.querySelector('strong').textContent.split(' ')[0] + ' ' + row.querySelector('strong').textContent.split(' ')[1];
+      const colleaguesSelect = document.getElementById('colleagues');
+      Array.from(colleaguesSelect.options).forEach(option => {
+        if (option.value === name) {
+          option.remove();
+        }
+      });
+      row.remove();
+    }
+
+    // Öğeyi düzenleme işlevi
+    function editRow(button) {
+      const row = button.closest('tr');
+      const name = row.querySelector('strong').textContent.split(' ')[0] + ' ' + row.querySelector('strong').textContent.split(' ')[1];
+      const role = row.querySelector('.icon').textContent;
+      const details = row.querySelector('.details').textContent;
+
+      document.getElementById('name').value = name;
+      document.getElementById('role').value = role;
+      document.getElementById('details').value = details;
+
+      // Seçenekleri ayarla
+      const colleaguesSelect = document.getElementById('colleagues');
+      const colleagues = row.querySelector('td:nth-child(2)').textContent.split(', ');
+      Array.from(colleaguesSelect.options).forEach(option => {
+        option.selected = colleagues.includes(option.value);
+      });
+
+      // Öğeyi sil
+      row.remove();
+    }
+
+    // Mevcut öğelere glow efekti ekle
+    document.querySelectorAll('.item').forEach(item => {
+      item.addEventListener('mouseover', () => {
+        item.classList.add('glow');
+        const name = item.querySelector('strong').textContent.split(' ')[0] + ' ' + item.querySelector('strong').textContent.split(' ')[1];
+        const colleaguesText = item.querySelector('td:nth-child(2)').textContent;
+        const info = document.getElementById('info');
+        info.textContent = `${name} toplamda ${colleaguesText.split(', ').length} kişiyle beraber çalışıyor. Ortak çalıştığı kişiler: ${colleaguesText}`;
+        info.style.display = 'block';
+      });
+
+      item.addEventListener('mouseout', () => {
+        item.classList.remove('glow');
+        const info = document.getElementById('info');
+        info.style.display = 'none';
+      });
+    });
+
+  </script>
 </body>
 </html>
