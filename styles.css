@@ -41,6 +41,23 @@ body {
     padding: 5px;
     margin-bottom: 10px;
     font-size: 12px; /* Girdi boyutunu küçült */
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-family: 'Courier New', Courier, monospace; /* Özel font */
+}
+
+button {
+    padding: 5px 10px; /* Buton boyutlarını küçült */
+    font-size: 12px; /* Buton yazı boyutlarını küçült */
+    cursor: pointer;
+    background-color: #4CAF50; /* Buton rengi */
+    color: white;
+    border: none;
+    border-radius: 5px;
+}
+
+button:hover {
+    background-color: #45a049; /* Hover rengi */
 }
 
 table {
@@ -62,12 +79,6 @@ th {
 
 td {
     font-size: 12px; /* Hücre boyutunu küçült */
-}
-
-button {
-    padding: 5px 10px; /* Buton boyutlarını küçült */
-    font-size: 12px; /* Buton yazı boyutlarını küçült */
-    cursor: pointer;
 }
 
 .glow {
