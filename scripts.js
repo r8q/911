@@ -1,3 +1,8 @@
+// Sayfa yüklendiğinde verileri geri yükle
+document.addEventListener('DOMContentLoaded', () => {
+    loadItems();
+});
+
 // Yeni öğe ekleme işlevi
 function addItem() {
     const name = document.getElementById('name').value;
@@ -39,6 +44,9 @@ function addItem() {
         newOption.textContent = name;
         colleaguesSelect.appendChild(newOption);
 
+        // Verileri localStorage'a kaydet
+        saveItems();
+
         // Formu temizle
         document.getElementById('name').value = '';
         document.getElementById('role').value = '';
@@ -73,6 +81,7 @@ function deleteRow(button) {
         }
     });
     row.remove();
+    saveItems();
 }
 
 // Öğeyi düzenleme işlevi
@@ -95,22 +104,66 @@ function editRow(button) {
 
     // Öğeyi sil
     row.remove();
+    saveItems();
 }
 
-// Mevcut öğelere glow efekti ekle
-document.querySelectorAll('.item').forEach(item => {
-    item.addEventListener('mouseover', () => {
-        item.classList.add('glow');
-        const name = item.querySelector('strong').textContent.split(' ')[0] + ' ' + item.querySelector('strong').textContent.split(' ')[1];
-        const colleaguesText = item.querySelector('td:nth-child(2)').textContent;
-        const info = document.getElementById('info');
-        info.textContent = `${name} toplamda ${colleaguesText.split(', ').length} kişiyle beraber çalışıyor. Ortak çalıştığı kişiler: ${colleaguesText}`;
-        info.style.display = 'block';
+// Verileri localStorage'a kaydet
+function saveItems() {
+    const items = [];
+    document.querySelectorAll('.container tbody tr').forEach(row => {
+        const name = row.querySelector('strong').textContent.split(' ')[0] + ' ' + row.querySelector('strong').textContent.split(' ')[1];
+        const role = row.querySelector('.icon').textContent;
+        const colleagues = row.querySelector('td:nth-child(2)').textContent;
+        const details = row.querySelector('.details').textContent;
+        items.push({ name, role, colleagues, details });
     });
+    localStorage.setItem('items', JSON.stringify(items));
+}
 
-    item.addEventListener('mouseout', () => {
-        item.classList.remove('glow');
-        const info = document.getElementById('info');
-        info.style.display = 'none';
+// Verileri localStorage'dan yükle
+function loadItems() {
+    const items = JSON.parse(localStorage.getItem('items')) || [];
+    const container = document.querySelector('.container tbody');
+    items.forEach(item => {
+        const newItem = document.createElement('tr');
+        newItem.className = 'item';
+
+        newItem.innerHTML = `
+          <td><strong>${item.name} <span class="icon">${item.role}</span></strong></td>
+          <td>${item.colleagues}</td>
+          <td class="details">${item.details}</td>
+          <td class="action-buttons">
+            <button class="edit-button" onclick="editRow(this)">Düzenle</button>
+            <button class="delete-button" onclick="deleteRow(this)">Sil</button>
+          </td>
+        `;
+
+        container.appendChild(newItem);
+
+        // Glow efekti ekle
+        newItem.addEventListener('mouseover', () => {
+            newItem.classList.add('glow');
+            const info = document.getElementById('info');
+            info.textContent = `${item.name} toplamda ${item.colleagues.split(', ').length} kişiyle beraber çalışıyor. Ortak çalıştığı kişiler: ${item.colleagues}`;
+            info.style.display = 'block';
+        });
+
+        newItem.addEventListener('mouseout', () => {
+            newItem.classList.remove('glow');
+            const info = document.getElementById('info');
+            info.style.display = 'none';
+        });
     });
-});
+}
+
+// Verileri JSON formatında dışa aktar
+function exportData() {
+    const items = JSON.parse(localStorage.getItem('items')) || [];
+    const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(items));
+    const downloadAnchorNode = document.createElement('a');
+    downloadAnchorNode.setAttribute("href", dataStr);
+    downloadAnchorNode.setAttribute("download", "data.json");
+    document.body.appendChild(downloadAnchorNode);
+    downloadAnchorNode.click();
+    downloadAnchorNode.remove();
+}
