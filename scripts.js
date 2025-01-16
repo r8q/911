@@ -1,17 +1,13 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.2.0/firebase-app.js";
-import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.2.0/firebase-analytics.js";
-import { getDatabase, ref, set, get, child, update, remove } from "https://www.gstatic.com/firebasejs/11.2.0/firebase-database.js";
-
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyAQ1uFDgchYy02eZSy9sSxLw5zbBnBKtCQ",
-  authDomain: "plus-d2d7b.firebaseapp.com",
-  projectId: "plus-d2d7b",
-  storageBucket: "plus-d2d7b.firebasestorage.app",
-  messagingSenderId: "19957704922",
-  appId: "1:19957704922:web:833fc5a1f2779318529de3",
-  measurementId: "G-QT3FLT7HZP"
+    apiKey: "AIzaSyC6KJ5A00MpmeIrS_InSn3XY3rLYPbY-bE",
+    authDomain: "car-55af9.firebaseapp.com",
+    projectId: "car-55af9",
+    storageBucket: "car-55af9.firebasestorage.app",
+    messagingSenderId: "672981054937",
+    appId: "1:672981054937:web:71ac69b6e3c8772002d5c8"
 };
 
 // Initialize Firebase
