@@ -120,25 +120,41 @@ function downloadPDF() {
   const { jsPDF } = window.jspdf;
   const doc = new jsPDF();
 
+  doc.addFont('ArialUnicodeMS.ttf', 'ArialUnicodeMS', 'normal');
+  doc.setFont('ArialUnicodeMS');
   // Tablo verilerini oluştur
   const data = [];
-   const name = row.querySelector('strong').textContent;
-        const role = row.querySelector('.icon').textContent;
-        const colleagues = row.querySelector('td:nth-child(2)').textContent;
-        const details = row.querySelector('.details').textContent;
-        data.push([name, role, colleagues, details]);
-  };
-
-  // Tabloyu PDF'e ekle
-  doc.autoTable({
-    head: [["Adı", "Görevi", "Birlikte Çalışabileceği Kişiler", "Detaylar"]],
-        body: data,
-        // Ensure UTF-8 encoding
-        html: 'utf-8'
+  document.querySelectorAll('.container tbody tr').forEach(row => {
+      const name = row.querySelector('td:nth-child(1)').textContent.trim();
+      const role = row.querySelector('td:nth-child(2)').textContent.trim();
+      const colleagues = row.querySelector('td:nth-child(3)').textContent.trim();
+      const details = row.querySelector('td:nth-child(4)').textContent.trim();
+      // Clean up the data to remove any unwanted characters or spaces
+      data.push([name.replace(/\s+/g, ' ').trim(), role.replace(/\s+/g, ' ').trim(), colleagues.replace(/\s+/g, ' ').trim(), details.replace(/\s+/g, ' ').trim()]);
   });
 
+   // Tabloyu PDF'e ekle
+   doc.autoTable({
+    head: [['Adı', 'Görevi', 'Birlikte Çalışabileceği Kişiler', 'Detaylar']],
+    body: data,
+    styles: {
+        // Adjusting cell padding for better readability
+        cellPadding: {top: 2, right: 2, bottom: 2, left: 2},
+        fontSize: 10,
+        halign: 'left',
+        valign: 'top'
+    },
+    // Ensure UTF-8 encoding
+    html: 'utf-8',
+    // Adjust column widths to prevent text overflow
+    columnStyles: {
+        0: {cellWidth: 30}, // Adı
+        1: {cellWidth: 20}, // Görevi
+        2: {cellWidth: 60}, // Birlikte Çalışabileceği Kişiler
+        3: {cellWidth: 70}  // Detaylar
+    }
+});
   // PDF'i indir
   doc.save("liste.pdf");
-  doc.addFont('ArialUnicodeMS.ttf', 'ArialUnicodeMS', 'normal');
-doc.setFont('ArialUnicodeMS');
 
+}
