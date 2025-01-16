@@ -1,73 +1,81 @@
-<!DOCTYPE html>
-<html lang="tr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Liste</title>
-    <link rel="stylesheet" href="styles.css">
-</head>
-<body>
-  <div class="container">
-    <table>
-      <thead>
-        <tr>
-          <th>Kişi</th>
-          <th>Birlikte Çalışabileceği Kişiler</th>
-          <th>İş Birliği Detayları</th>
-          <th>İşlemler</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr class="burak">
-          <td><strong>Burak Fidan (Koordinatör) <span class="icon">🧑‍💼</span></strong></td>
-          <td>Tüm ekip</td>
-          <td class="details">Projenin genel yönlendirmesini yapar, nihai kararları alır, sorunların çözümü için liderlik eder, ekip ile sürekli iletişim halindedir. Proje bütçesinin planlanması ve takibini yapar, sponsorluk görüşmelerinde ana rol oynar.</td>
-          <td class="action-buttons">
-            <button class="edit-button" onclick="editRow(this)">Düzenle</button>
-            <button class="delete-button" onclick="deleteRow(this)">Sil</button>
-          </td>
-        </tr>
-        <tr class="yusuf">
-          <td><strong>Yusuf Yıldırım (Eğitim ve İçerik Yöneticisi) <span class="icon">📚</span></strong></td>
-          <td>Tansu Ertürk, Yağmur Geyik, Burcu Söğüt</td>
-          <td class="details">Eğitim materyallerini hazırlar, atölye ve seminerlerin içeriklerini planlar, katılımcılardan geri bildirim toplar ve bu geri bildirimlere göre içerikleri günceller. Eğitim süreçlerinde medya içeriklerinin kullanımını yönetir.</td>
-          <td class="action-buttons">
-            <button class="edit-button" onclick="editRow(this)">Düzenle</button>
-            <button class="delete-button" onclick="deleteRow(this)">Sil</button>
-          </td>
-        </tr>
-        <tr class="taha">
-          <td><strong>Taha Akbaba (Lojistik ve Organizasyon Yöneticisi) <span class="icon">📊</span></strong></td>
-          <td>Zeynep Gündoğan, Tansu Ertürk</td>
-          <td class="details">Etkinlik organizasyonunu yönetir, ulaşım ve konaklama düzenlemelerini yapar, etkinlik mekanlarını seçer ve organize eder. Lojistik süreçlerin sorunsuz ilerlemesi için destek sağlar.</td>
-          <td class="action-buttons">
-            <button class="edit-button" onclick="editRow(this)">Düzenle</button>
-            <button class="delete-button" onclick="deleteRow(this)">Sil</button>
-          </td>
-        </tr>
-        <tr class="tansu">
-          <td><strong>Tansu Ertürk (Proje Destek Koordinatörü) <span class="icon">🤝</span></strong></td>
-          <td>Burak Fidan, Yusuf Yıldırım, Taha Akbaba, Zeynep Gündoğan</td>
-          <td class="details">Ana ekibe ve katılımcılara destek sağlar, çeşitli süreçlerde yardımcı olur, Küçük çaplı sorunlar ve ihtiyaçlar için çözüm üretir.</td>
-          <td class="action-buttons">
-            <button class="edit-button" onclick="editRow(this)">Düzenle</button>
-            <button class="delete-button" onclick="deleteRow(this)">Sil</button>
-          </td>
-        </tr>
-        <tr class="yagmur">
-          <td><strong>Yağmur Geyik (Video ve Medya Yöneticisi) <span class="icon">🎥</span></strong></td>
-          <td>Burcu Söğüt, Zeynep Gündoğan</td>
-          <td class="details">Projenin video içeriklerini çeker ve düzenler, dron çekimlerini yapar, video ve medya stratejisini belirler. Çekim planlamaları ve kalite kontrolünden sorumludur, sosyal medya paylaşımları için görsel içerik hazırlar.</td>
-          <td class="action-buttons">
-            <button class="edit-button" onclick="editRow(this)">Düzenle</button>
-            <button class="delete-button" onclick="deleteRow(this)">Sil</button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-    <div id="info" style="display: none;"></div>
-  </div>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
-  <script src="scripts.js"></script>
-</body>
-</html>
+body {
+    font-size: 14px; /* Yazı fontlarını küçült */
+}
+
+table {
+    width: 90%; /* Tablo genişliklerini küçült */
+}
+
+button {
+    padding: 5px 10px; /* Buton boyutlarını küçült */
+    font-size: 14px; /* Buton yazı boyutlarını küçült */
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #FFFFFF; /* Beyaz arka plan */
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.add-item-panel {
+    max-width: 600px; /* Panel genişliğini küçült */
+    margin: 0 auto 20px;
+    padding: 10px;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+}
+
+.add-item-panel h2 {
+    font-size: 18px; /* Başlık boyutunu küçült */
+}
+
+.add-item-panel label {
+    display: block;
+    margin: 5px 0;
+    font-size: 14px; /* Etiket boyutunu küçült */
+}
+
+.add-item-panel input,
+.add-item-panel select,
+.add-item-panel textarea {
+    width: 100%;
+    padding: 5px;
+    margin-bottom: 10px;
+    font-size: 14px; /* Girdi boyutunu küçült */
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    background: #fff;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+    margin: 2rem 0;
+}
+
+th {
+    background-color: var(--primary-color);
+    color: white;
+    font-weight: 500;
+    padding: 1rem;
+    text-align: left;
+}
+
+td {
+    padding: 1rem;
+    border-bottom: 1px solid var(--border-color);
+}
+
+tr:last-child td {
+    border-bottom: none;
+}
+
+.glow {
+    box-shadow: 0 0 10px rgba(255, 255, 0, 0.5);
+}
