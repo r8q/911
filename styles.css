@@ -1,28 +1,22 @@
 body {
-    font-size: 14px; /* Yazı fontlarını küçült */
-}
-
-table {
-    width: 90%; /* Tablo genişliklerini küçült */
-}
-
-button {
-    padding: 5px 10px; /* Buton boyutlarını küçült */
-    font-size: 14px; /* Buton yazı boyutlarını küçült */
+    font-size: 12px; /* Yazı fontlarını küçült */
+    line-height: 1.5;
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
 }
 
 .container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 20px;
+    max-width: 800px; /* Konteyner genişliğini küçült */
+    margin: 20px auto;
+    padding: 10px;
     background-color: #FFFFFF; /* Beyaz arka plan */
-    border-radius: 15px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
 .add-item-panel {
-    max-width: 600px; /* Panel genişliğini küçült */
-    margin: 0 auto 20px;
+    margin-bottom: 20px;
     padding: 10px;
     background-color: #f9f9f9;
     border: 1px solid #ddd;
@@ -30,13 +24,14 @@ button {
 }
 
 .add-item-panel h2 {
-    font-size: 18px; /* Başlık boyutunu küçült */
+    font-size: 16px; /* Başlık boyutunu küçült */
+    margin-bottom: 10px;
 }
 
 .add-item-panel label {
     display: block;
     margin: 5px 0;
-    font-size: 14px; /* Etiket boyutunu küçült */
+    font-size: 12px; /* Etiket boyutunu küçült */
 }
 
 .add-item-panel input,
@@ -45,35 +40,34 @@ button {
     width: 100%;
     padding: 5px;
     margin-bottom: 10px;
-    font-size: 14px; /* Girdi boyutunu küçült */
+    font-size: 12px; /* Girdi boyutunu küçült */
 }
 
 table {
     width: 100%;
-    border-collapse: separate;
-    border-spacing: 0;
-    background: #fff;
-    border-radius: 12px;
-    overflow: hidden;
-    box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
-    margin: 2rem 0;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+th, td {
+    padding: 8px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
 }
 
 th {
-    background-color: var(--primary-color);
-    color: white;
-    font-weight: 500;
-    padding: 1rem;
-    text-align: left;
+    background-color: #f2f2f2;
+    font-size: 12px; /* Başlık boyutunu küçült */
 }
 
 td {
-    padding: 1rem;
-    border-bottom: 1px solid var(--border-color);
+    font-size: 12px; /* Hücre boyutunu küçült */
 }
 
-tr:last-child td {
-    border-bottom: none;
+button {
+    padding: 5px 10px; /* Buton boyutlarını küçült */
+    font-size: 12px; /* Buton yazı boyutlarını küçült */
+    cursor: pointer;
 }
 
 .glow {
