@@ -34,8 +34,8 @@
       <label for="details">Detaylar:</label>
       <textarea id="details" placeholder="İş Birliği Detayları"></textarea>
       <button onclick="addItem()">Ekle</button>
-      <button onclick="showFilenameModal()">Görevlendirme Tablosunu İndir</button>
-      <button onclick="toggleTheme()">Temayı Değiştir</button>
+      <!-- Tabloyu indir butonu eklendi -->
+      <button onclick="downloadTable()">Tabloyu İndir</button>
     </div>
     <table>
       <thead>
@@ -43,7 +43,7 @@
           <th>Kişi</th>
           <th>Birlikte Çalışabileceği Kişiler</th>
           <th>İş Birliği Detayları</th>
-          <th>İşlemler</th>
+          <th>İşlemler</th> <!-- Yeni sütun başlığı eklendi -->
         </tr>
       </thead>
       <tbody>
@@ -53,17 +53,7 @@
     <div id="info" style="display: none;"></div>
   </div>
 
-  <!-- Modal Dialog -->
-  <div id="filenameModal" class="modal">
-    <div class="modal-content">
-      <span class="close" onclick="closeFilenameModal()">&times;</span>
-      <h2>Dosya Adı Girin</h2>
-      <label for="filename">Dosya Adı:</label>
-      <input type="text" id="filename" placeholder="Dosya adı girin">
-      <button onclick="downloadTable()">İndir</button>
-    </div>
-  </div>
-
+  <!-- Modal Dialog kaldırıldı -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.25/jspdf.plugin.autotable.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/js/all.min.js"></script>
