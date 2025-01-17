@@ -34,7 +34,7 @@
       <label for="details">Detaylar:</label>
       <textarea id="details" placeholder="İş Birliği Detayları"></textarea>
       <button onclick="addItem()">Ekle</button>
-      <button onclick="downloadPDF()">PDF İndir(pasif durumda)</button>
+      <button onclick="showFilenameModal()">Görevlendirme Tablosunu İndir</button>
     </div>
     <table>
       <thead>
@@ -51,8 +51,21 @@
     </table>
     <div id="info" style="display: none;"></div>
   </div>
+
+  <!-- Modal Dialog -->
+  <div id="filenameModal" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="closeFilenameModal()">&times;</span>
+      <h2>Dosya Adı Girin</h2>
+      <label for="filename">Dosya Adı:</label>
+      <input type="text" id="filename" placeholder="Dosya adı girin">
+      <button onclick="downloadTable()">İndir</button>
+    </div>
+  </div>
+
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.25/jspdf.plugin.autotable.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/js/all.min.js"></script>
   <script src="scripts.js"></script>
 </body>
 </html>
