@@ -168,8 +168,18 @@ function downloadTable() {
     }
   });
 
+  // PDF'i Blob olarak oluştur
+  const pdfBlob = doc.output('blob');
+
   // PDF'i indir
-  doc.save(`${name}-gorevlendirme.pdf`);
+  const pdfUrl = URL.createObjectURL(pdfBlob);
+  const pdfLink = document.createElement('a');
+  pdfLink.href = pdfUrl;
+  pdfLink.download = `${name}-gorevlendirme.pdf`;
+  document.body.appendChild(pdfLink);
+  pdfLink.click();
+  document.body.removeChild(pdfLink);
+  URL.revokeObjectURL(pdfUrl);
 
   // HTML'i indir
   let htmlData = `
@@ -218,11 +228,15 @@ function downloadTable() {
     </body>
     </html>
   `;
-  let blob = new Blob([htmlData], { type: 'text/html' });
-  let a = document.createElement('a');
-  a.href = URL.createObjectURL(blob);
-  a.download = `${name}-gorevlendirme.html`;
-  a.click();
+  const htmlBlob = new Blob([htmlData], { type: 'text/html' });
+  const htmlUrl = URL.createObjectURL(htmlBlob);
+  const htmlLink = document.createElement('a');
+  htmlLink.href = htmlUrl;
+  htmlLink.download = `${name}-gorevlendirme.html`;
+  document.body.appendChild(htmlLink);
+  htmlLink.click();
+  document.body.removeChild(htmlLink);
+  URL.revokeObjectURL(htmlUrl);
 }
 
 function htmlKaydet() {
@@ -233,3 +247,21 @@ function htmlKaydet() {
   a.download = 'tablolar.html';
   a.click();
 }
+
+function toggleTheme() {
+  const body = document.body;
+  body.classList.toggle('dark-theme');
+  if (body.classList.contains('dark-theme')) {
+    localStorage.setItem('theme', 'dark');
+  } else {
+    localStorage.setItem('theme', 'light');
+  }
+}
+
+// Load theme from local storage
+window.onload = () => {
+  const theme = localStorage.getItem('theme');
+  if (theme === 'dark') {
+    document.body.classList.add('dark-theme');
+  }
+};
