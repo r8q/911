@@ -1,62 +1,295 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Göreevlendirme</title>
-    <link rel="stylesheet" href="stil.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Liste</title>
+<style>
+  body {
+    font-family: 'Arial', sans-serif;
+    background-color: #F4F4F9; /* Hafif gri */
+    color: #333333; /* Koyu gri metin */
+    margin: 0;
+    padding: 20px;
+  }
+
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #FFFFFF; /* Beyaz arka plan */
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  }
+
+  .item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    margin-bottom: 10px;
+    background-color: #EEEEEE; /* Çok açık gri */
+    border-radius: 10px;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .item:hover {
+    background-color: #D84040; /* Kırmızı */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  }
+
+  .item strong {
+    font-size: 1.1em;
+    color: #1D1616; /* Koyu kahverengi */
+  }
+
+  .details {
+    flex: 1;
+    margin-left: 10px;
+    color: #333333; /* Koyu gri */
+  }
+
+  .icon {
+    margin-left: 5px;
+  }
+
+  .action-buttons {
+    display: flex;
+    gap: 10px;
+  }
+
+  .action-buttons button {
+    padding: 5px 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+
+  .edit-button {
+    background-color: #FFA500; /* Turuncu */
+    color: #FFFFFF;
+  }
+
+  .delete-button {
+    background-color: #FF0000; /* Kırmızı */
+    color: #FFFFFF;
+  }
+
+  #entry-panel {
+    margin-top: 20px;
+    padding: 20px;
+    border: 1px solid #1D1616;
+    border-radius: 10px;
+    background-color: #FFFFFF;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  }
+
+  #entry-panel input, #entry-panel textarea, #entry-panel select {
+    width: calc(100% - 22px);
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #D84040;
+    border-radius: 5px;
+  }
+
+  #entry-panel select {
+    height: auto; /* Seçeneklerin görünmesi için */
+  }
+
+  #entry-panel button {
+    padding: 10px 20px;
+    background-color: #8E1616;
+    color: #FFFFFF;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+
+  #entry-panel button:hover {
+    background-color: #1D1616;
+  }
+
+  #info {
+    margin-top: 20px;
+    padding: 10px;
+    background-color: #ffffe0; /* Açık sarı */
+    border: 1px solid #cccccc;
+    border-radius: 5px;
+    display: none;
+  }
+
+  /* Responsive Tasarım */
+  @media (max-width: 600px) {
+    .container {
+      padding: 10px;
+    }
+  }
+</style>
 </head>
 <body>
   <div class="container">
-    <div class="add-item-panel">
-      <h2>Yeni Kişi Ekle</h2>
-      <label for="name">İsim:</label>
-      <input type="text" id="name">
-      <label for="role">Rol:</label>
-      <select id="role">
-        <option value="🧑‍💼">Koordinatör</option>
-        <option value="📚">Eğitim ve İçerik Yöneticisi</option>
-        <option value="📊">Lojistik ve Organizasyon Yöneticisi</option>
-        <option value="🤝">Proje Destek Koordinatörü</option>
-        <option value="🎥">Video ve Medya Yöneticisi</option>
-        <option value="🎨">Grafik Tasarımcı</option>
-      </select>
-      <label for="colleagues">Birlikte Çalışabileceği Kişiler:</label>
-      <select id="colleagues" multiple>
-        <option value="Burak Fidan">Burak Fidan</option>
-        <option value="Yusuf Yıldırım">Yusuf Yıldırım</option>
-        <option value="Taha Akbaba">Taha Akbaba</option>
-        <option value="Tansu Ertürk">Tansu Ertürk</option>
-        <option value="Yağmur Geylek">Yağmur Geylek</option>
-        <option value="Zeynep Gündoğan">Zeynep Gündoğan</option>
-        <option value="Burcu Söğüt">Burcu Söğüt</option>
-      </select>
-      <label for="details">Detaylar:</label>
-      <textarea id="details" placeholder="İş Birliği Detayları"></textarea>
-      <button onclick="addItem()">Ekle</button>
-      <!-- Tabloyu indir butonu eklendi -->
-      <button onclick="downloadTable()">Tabloyu İndir</button>
-    </div>
-    <table>
-      <thead>
-        <tr>
-          <th>Kişi</th>
-          <th>Birlikte Çalışabileceği Kişiler</th>
-          <th>İş Birliği Detayları</th>
-          <th>İşlemler</th> <!-- Yeni sütun başlığı eklendi -->
-        </tr>
-      </thead>
-      <tbody>
-        <!-- Veriler buraya yüklenecek -->
-      </tbody>
-    </table>
-    <div id="info" style="display: none;"></div>
+    <!-- Başlangıçta boş -->
   </div>
 
-  <!-- Modal Dialog kaldırıldı -->
+  <div id="info"></div>
+
+  <div id="entry-panel">
+    <h3>Yeni Kişi Ekle</h3>
+    <input type="text" id="name" placeholder="Kişi Adı">
+    <select id="role">
+      <option value="🧑‍💼">Koordinatör</option>
+      <option value="📚">Eğitim ve İçerik Yöneticisi</option>
+      <option value="📊">Lojistik ve Organizasyon Yöneticisi</option>
+      <option value="🤝">Proje Destek Koordinatörü</option>
+      <option value="🎥">Video ve Medya Yöneticisi</option>
+      <option value="📞">İletişim ve Halkla İlişkiler Yöneticisi</option>
+      <option value="🎨">Grafik Tasarımcı</option>
+    </select>
+    <select id="colleagues" multiple>
+      <!-- Başlangıçta boş -->
+    </select>
+    <textarea id="details" placeholder="İş Birliği Detayları"></textarea>
+    <button onclick="addItem()">Ekle</button>
+  </div>
+
+  <button onclick="downloadPDF()">PDF Olarak İndir</button>
+
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.25/jspdf.plugin.autotable.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/js/all.min.js"></script>
-  <script src="scripts.js"></script>
+  <script>
+    // Yeni öğe ekleme işlevi
+    function addItem() {
+      const name = document.getElementById('name').value;
+      const role = document.getElementById('role').value;
+      const colleaguesSelect = document.getElementById('colleagues');
+      const details = document.getElementById('details').value;
+
+      const selectedColleagues = Array.from(colleaguesSelect.selectedOptions).map(option => option.value).join(', ');
+
+      if (name && role && details) {
+        // Aynı kişiyi birden fazla kez eklemeyi önle
+        const existingItems = document.querySelectorAll('.item strong');
+        for (let item of existingItems) {
+          if (item.textContent.includes(name)) {
+            alert('Bu kişi zaten eklenmiş.');
+            return;
+          }
+        }
+
+        const container = document.querySelector('.container');
+        const newItem = document.createElement('div');
+        newItem.className = 'item';
+
+        newItem.innerHTML = `
+          <strong>${name} <span class="icon">${role}</span></strong>
+          <div class="details">${details}</div>
+          <div class="action-buttons">
+            <button class="edit-button" onclick="editItem(this)">Düzenle</button>
+            <button class="delete-button" onclick="deleteItem(this)">Sil</button>
+          </div>
+        `;
+
+        container.appendChild(newItem);
+
+        // Yeni eklenen kişiyi seçeneklere ekle
+        const newOption = document.createElement('option');
+        newOption.value = name;
+        newOption.textContent = name;
+        colleaguesSelect.appendChild(newOption);
+
+        // Formu temizle
+        document.getElementById('name').value = '';
+        document.getElementById('role').value = '';
+        document.getElementById('details').value = '';
+
+        // Glow efekti ekle
+        newItem.addEventListener('mouseover', () => {
+          newItem.classList.add('glow');
+          const info = document.getElementById('info');
+          info.textContent = `${name} toplamda ${selectedColleagues.split(', ').length} kişiyle beraber çalışıyor. Ortak çalıştığı kişiler: ${selectedColleagues}`;
+          info.style.display = 'block';
+        });
+
+        newItem.addEventListener('mouseout', () => {
+          newItem.classList.remove('glow');
+          const info = document.getElementById('info');
+          info.style.display = 'none';
+        });
+      } else {
+        alert('Lütfen tüm alanları doldurun.');
+      }
+    }
+
+    // Öğeyi silme işlevi
+    function deleteItem(button) {
+      const item = button.closest('.item');
+      const name = item.querySelector('strong').textContent.split(' ')[0] + ' ' + item.querySelector('strong').textContent.split(' ')[1];
+      const colleaguesSelect = document.getElementById('colleagues');
+      Array.from(colleaguesSelect.options).forEach(option => {
+        if (option.value === name) {
+          option.remove();
+        }
+      });
+      item.remove();
+    }
+
+    // Öğeyi düzenleme işlevi
+    function editItem(button) {
+      const item = button.closest('.item');
+      const name = item.querySelector('strong').textContent.split(' ')[0] + ' ' + item.querySelector('strong').textContent.split(' ')[1];
+      const role = item.querySelector('.icon').textContent;
+      const details = item.querySelector('.details').textContent;
+
+      document.getElementById('name').value = name;
+      document.getElementById('role').value = role;
+      document.getElementById('details').value = details;
+
+      // Seçenekleri ayarla
+      const colleaguesSelect = document.getElementById('colleagues');
+      const colleagues = item.querySelector('strong').textContent.split(' ').slice(2).join(' ').replace('(', '').replace(')', '').split(', ');
+      Array.from(colleaguesSelect.options).forEach(option => {
+        option.selected = colleagues.includes(option.value);
+      });
+
+      // Öğeyi sil
+      item.remove();
+    }
+
+    // Mevcut öğelere glow efekti ekle
+    document.querySelectorAll('.item').forEach(item => {
+      item.addEventListener('mouseover', () => {
+        item.classList.add('glow');
+        const name = item.querySelector('strong').textContent.split(' ')[0] + ' ' + item.querySelector('strong').textContent.split(' ')[1];
+        const colleaguesText = item.querySelector('strong').textContent.split(' ').slice(2).join(' ').replace('(', '').replace(')', '');
+        const info = document.getElementById('info');
+        info.textContent = `${name} toplamda ${colleaguesText.split(', ').length} kişiyle beraber çalışıyor. Ortak çalıştığı kişiler: ${colleaguesText}`;
+        info.style.display = 'block';
+      });
+
+      item.addEventListener('mouseout', () => {
+        item.classList.remove('glow');
+        const info = document.getElementById('info');
+        info.style.display = 'none';
+      });
+    });
+
+    // PDF indirme işlevi
+    function downloadPDF() {
+      const { jsPDF } = window.jspdf;
+      const doc = new jsPDF();
+
+      doc.text("Kişi Listesi", 10, 10);
+
+      const items = document.querySelectorAll('.item');
+      let y = 20;
+      items.forEach(item => {
+        const name = item.querySelector('strong').textContent;
+        const details = item.querySelector('.details').textContent;
+        doc.text(`${name}: ${details}`, 10, y);
+        y += 10;
+      });
+
+      doc.save('liste.pdf');
+    }
+  </script>
 </body>
 </html>
