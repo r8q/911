@@ -1,0 +1,147 @@
+:root {
+  --color-bg: #f7f7f7;
+  --color-fg: #4a4a4a;
+  --panel-bg: #ffffff;
+  --panel-border: #dcdcdc;
+  --input-bg: #ffffff;
+  --input-border: #dcdcdc;
+  --input-color: #4a4a4a;
+  --button-bg: #ff9797;
+  --button-hover-bg: #ffdfba;
+  --table-header-bg: #bae1ff;
+  --table-border: #dcdcdc;
+  --glow-color: rgba(255, 182, 193, 0.5);
+}
+
+body {
+  font-size: 12px; /* Yazı fontlarını küçült */
+  line-height: 1.5;
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+  background-color: var(--color-bg);
+  color: var(--color-fg);
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.container {
+  max-width: 800px; /* Konteyner genişliğini küçült */
+  margin: 20px auto;
+  padding: 10px;
+  background-color: var(--panel-bg);
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.add-item-panel {
+  margin-bottom: 20px;
+  padding: 10px;
+  background-color: var(--panel-bg);
+  border: 1px solid var(--panel-border);
+  border-radius: 10px;
+}
+
+.add-item-panel h2 {
+  font-size: 16px; /* Başlık boyutunu küçült */
+  margin-bottom: 10px;
+  color: var(--color-fg);
+}
+
+.add-item-panel label {
+  display: block;
+  margin: 5px 0;
+  font-size: 12px; /* Etiket boyutunu küçült */
+  color: var(--color-fg);
+}
+
+.add-item-panel input,
+.add-item-panel select,
+.add-item-panel textarea {
+  width: 100%;
+  padding: 5px;
+  margin-bottom: 10px;
+  font-size: 12px; /* Girdi boyutunu küçült */
+  border: 1px solid var(--input-border);
+  border-radius: 5px;
+  font-family: 'Courier New', Courier, monospace; /* Özel font */
+  background-color: var(--input-bg);
+  color: var(--input-color);
+}
+
+button {
+  padding: 8px 30px; /* Buton boyutlarını küçült */
+  font-size: 12px; /* Buton yazı boyutlarını küçült */
+  cursor: pointer;
+  background-color: var(--button-bg);
+  color: white;
+  border: none;
+  border-radius: 5px;
+}
+
+button:hover {
+  background-color: var(--button-hover-bg);
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+}
+
+th, td {
+  padding: 8px;
+  text-align: left;
+  border-bottom: 1px solid var(--table-border);
+}
+
+th {
+  background-color: var(--table-header-bg);
+  color: var(--color-fg);
+  font-size: 12px; /* Başlık boyutunu küçült */
+}
+
+td {
+  font-size: 12px; /* Hücre boyutunu küçült */
+  color: var(--color-fg);
+}
+
+.glow {
+  box-shadow: 0 0 10px var(--glow-color);
+}
+
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+.modal-content {
+  background-color: #fefefe;
+  margin: 15% auto; /* 15% from the top and centered */
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%; /* Could be more or less, depending on screen size */
+  max-width: 400px; /* Maximum width */
+  border-radius: 10px;
+}
+
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}

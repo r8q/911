@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Göreevlendirme</title>
+    <link rel="stylesheet" href="stil.css">
+</head>
+<body>
+  <div class="container">
+    <div class="add-item-panel">
+      <h2>Yeni Kişi Ekle</h2>
+      <label for="name">İsim:</label>
+      <input type="text" id="name">
+      <label for="role">Rol:</label>
+      <select id="role">
+        <option value="🧑‍💼">Koordinatör</option>
+        <option value="📚">Eğitim ve İçerik Yöneticisi</option>
+        <option value="📊">Lojistik ve Organizasyon Yöneticisi</option>
+        <option value="🤝">Proje Destek Koordinatörü</option>
+        <option value="🎥">Video ve Medya Yöneticisi</option>
+        <option value="🎨">Grafik Tasarımcı</option>
+      </select>
+      <label for="colleagues">Birlikte Çalışabileceği Kişiler:</label>
+      <select id="colleagues" multiple>
+        <option value="Burak Fidan">Burak Fidan</option>
+        <option value="Yusuf Yıldırım">Yusuf Yıldırım</option>
+        <option value="Taha Akbaba">Taha Akbaba</option>
+        <option value="Tansu Ertürk">Tansu Ertürk</option>
+        <option value="Yağmur Geylek">Yağmur Geylek</option>
+        <option value="Zeynep Gündoğan">Zeynep Gündoğan</option>
+        <option value="Burcu Söğüt">Burcu Söğüt</option>
+      </select>
+      <label for="details">Detaylar:</label>
+      <textarea id="details" placeholder="İş Birliği Detayları"></textarea>
+      <button onclick="addItem()">Ekle</button>
+      <!-- Tabloyu indir butonu eklendi -->
+      <button onclick="downloadTable()">Tabloyu İndir</button>
+    </div>
+    <table>
+      <thead>
+        <tr>
+          <th>Kişi</th>
+          <th>Birlikte Çalışabileceği Kişiler</th>
+          <th>İş Birliği Detayları</th>
+          <th>İşlemler</th> <!-- Yeni sütun başlığı eklendi -->
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Veriler buraya yüklenecek -->
+      </tbody>
+    </table>
+    <div id="info" style="display: none;"></div>
+  </div>
+
+  <!-- Modal Dialog kaldırıldı -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.25/jspdf.plugin.autotable.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/js/all.min.js"></script>
+  <script src="scripts.js"></script>
+</body>
+</html>
