@@ -115,76 +115,23 @@ document.querySelectorAll('.item').forEach(item => {
   });
 });
 
-function showFilenameModal() {
-  document.getElementById('filenameModal').style.display = 'block';
-}
-
-function closeFilenameModal() {
-  document.getElementById('filenameModal').style.display = 'none';
-}
+// Tema değiştirme ile ilgili işlevler kaldırıldı
 
 function downloadTable() {
-  const name = document.getElementById('filename').value;
-  if (!name) {
-    alert("Dosya adı girmediniz. İşlem iptal edildi.");
-    return;
-  }
-
-  closeFilenameModal();
-
-  const { jsPDF } = window.jspdf;
-  const doc = new jsPDF();
-
-  doc.addFont('ArialUnicodeMS.ttf', 'ArialUnicodeMS', 'normal');
-  doc.setFont('ArialUnicodeMS');
   // Tablo verilerini oluştur
   const data = [];
   document.querySelectorAll('.container tbody tr').forEach(row => {
       const name = row.querySelector('td:nth-child(1)').textContent.trim();
       const colleagues = row.querySelector('td:nth-child(2)').textContent.trim();
       const details = row.querySelector('td:nth-child(3)').textContent.trim();
-      // Clean up the data to remove any unwanted characters or spaces
-      data.push([name.replace(/\s+/g, ' ').trim(), colleagues.replace(/\s+/g, ' ').trim(), details.replace(/\s+/g, ' ').trim()]);
+      data.push([name, colleagues, details]);
   });
 
-  // Tabloyu PDF'e ekle
-  doc.autoTable({
-    head: [['Kişi', 'Birlikte Çalışabileceği Kişiler', 'İş Birliği Detayları']],
-    body: data,
-    styles: {
-        // Adjusting cell padding for better readability
-        cellPadding: {top: 2, right: 2, bottom: 2, left: 2},
-        fontSize: 10,
-        halign: 'left',
-        valign: 'top'
-    },
-    // Ensure UTF-8 encoding
-    html: 'utf-8',
-    // Adjust column widths to prevent text overflow
-    columnStyles: {
-        0: {cellWidth: 50}, // Kişi
-        1: {cellWidth: 60}, // Birlikte Çalışabileceği Kişiler
-        2: {cellWidth: 80}  // İş Birliği Detayları
-    }
-  });
-
-  // PDF'i Blob olarak oluştur
-  const pdfBlob = doc.output('blob');
-
-  // PDF'i indir
-  const pdfUrl = URL.createObjectURL(pdfBlob);
-  const pdfLink = document.createElement('a');
-  pdfLink.href = pdfUrl;
-  pdfLink.download = `${name}-gorevlendirme.pdf`;
-  document.body.appendChild(pdfLink);
-  pdfLink.click();
-  document.body.removeChild(pdfLink);
-  URL.revokeObjectURL(pdfUrl);
-
-  // HTML'i indir
+  // HTML verilerini oluştur
   let htmlData = `
     <html>
     <head>
+      <meta charset="UTF-8">
       <style>
         table {
           width: 100%;
@@ -228,40 +175,15 @@ function downloadTable() {
     </body>
     </html>
   `;
-  const htmlBlob = new Blob([htmlData], { type: 'text/html' });
-  const htmlUrl = URL.createObjectURL(htmlBlob);
-  const htmlLink = document.createElement('a');
-  htmlLink.href = htmlUrl;
-  htmlLink.download = `${name}-gorevlendirme.html`;
-  document.body.appendChild(htmlLink);
-  htmlLink.click();
-  document.body.removeChild(htmlLink);
-  URL.revokeObjectURL(htmlUrl);
-}
 
-function htmlKaydet() {
-  let data = document.querySelector('.container').outerHTML;
-  let blob = new Blob([data], { type: 'text/html' });
-  let a = document.createElement('a');
-  a.href = URL.createObjectURL(blob);
-  a.download = 'tablolar.html';
+  // HTML dosyasını indir
+  const blob = new Blob([htmlData], { type: 'text/html' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'gorevlendirme.html';
+  document.body.appendChild(a);
   a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
 }
-
-function toggleTheme() {
-  const body = document.body;
-  body.classList.toggle('dark-theme');
-  if (body.classList.contains('dark-theme')) {
-    localStorage.setItem('theme', 'dark');
-  } else {
-    localStorage.setItem('theme', 'light');
-  }
-}
-
-// Load theme from local storage
-window.onload = () => {
-  const theme = localStorage.getItem('theme');
-  if (theme === 'dark') {
-    document.body.classList.add('dark-theme');
-  }
-};
