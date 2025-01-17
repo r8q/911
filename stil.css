@@ -1,31 +1,16 @@
-:root, :root.light {
-  --color-bg: #f5f5f5;
-  --color-fg: #333333;
+:root {
+  --color-bg: #f7f7f7;
+  --color-fg: #4a4a4a;
   --panel-bg: #ffffff;
-  --panel-border: #cccccc;
+  --panel-border: #dcdcdc;
   --input-bg: #ffffff;
-  --input-border: #cccccc;
-  --input-color: #333333;
-  --button-bg: #4CAF50;
-  --button-hover-bg: #45a049;
-  --table-header-bg: #e0e0e0;
-  --table-border: #dddddd;
-  --glow-color: rgba(255, 255, 0, 0.5);
-}
-
-:root.dark {
-  --color-bg: #181818;
-  --color-fg: #e0e0e0;
-  --panel-bg: #242424;
-  --panel-border: #444444;
-  --input-bg: #2c2c2c;
-  --input-border: #444444;
-  --input-color: #e0e0e0;
-  --button-bg: #3a3a3a;
-  --button-hover-bg: #555555;
-  --table-header-bg: #333333;
-  --table-border: #444444;
-  --glow-color: rgba(255, 255, 255, 0.5);
+  --input-border: #dcdcdc;
+  --input-color: #4a4a4a;
+  --button-bg: #ff9797;
+  --button-hover-bg: #ffdfba;
+  --table-header-bg: #bae1ff;
+  --table-border: #dcdcdc;
+  --glow-color: rgba(255, 182, 193, 0.5);
 }
 
 body {
@@ -48,11 +33,6 @@ body {
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
-body.dark-theme .container {
-  background-color: var(--panel-bg);
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
-}
-
 .add-item-panel {
   margin-bottom: 20px;
   padding: 10px;
@@ -67,24 +47,10 @@ body.dark-theme .container {
   color: var(--color-fg);
 }
 
-body.dark-theme .add-item-panel h2,
-body.dark-theme .add-item-panel label,
-body.dark-theme .add-item-panel input,
-body.dark-theme .add-item-panel select,
-body.dark-theme .add-item-panel textarea,
-body.dark-theme th,
-body.dark-theme td {
-  color: var(--color-fg);
-}
-
 .add-item-panel label {
   display: block;
   margin: 5px 0;
   font-size: 12px; /* Etiket boyutunu küçült */
-  color: var(--color-fg);
-}
-
-body.dark-theme .add-item-panel label {
   color: var(--color-fg);
 }
 
@@ -102,16 +68,8 @@ body.dark-theme .add-item-panel label {
   color: var(--input-color);
 }
 
-body.dark-theme .add-item-panel input,
-body.dark-theme .add-item-panel select,
-body.dark-theme .add-item-panel textarea {
-  background-color: var(--input-bg);
-  border-color: var(--input-border);
-  color: var(--input-color);
-}
-
 button {
-  padding: 5px 10px; /* Buton boyutlarını küçült */
+  padding: 8px 30px; /* Buton boyutlarını küçült */
   font-size: 12px; /* Buton yazı boyutlarını küçült */
   cursor: pointer;
   background-color: var(--button-bg);
@@ -122,14 +80,6 @@ button {
 
 button:hover {
   background-color: var(--button-hover-bg);
-}
-
-body.dark-theme button {
-  background-color: #757575;
-}
-
-body.dark-theme button:hover {
-  background-color: #616161;
 }
 
 table {
@@ -150,24 +100,12 @@ th {
   font-size: 12px; /* Başlık boyutunu küçült */
 }
 
-body.dark-theme th {
-  background-color: var(--table-header-bg);
-}
-
 td {
   font-size: 12px; /* Hücre boyutunu küçült */
   color: var(--color-fg);
 }
 
-body.dark-theme td {
-  border-bottom: 1px solid var(--table-border);
-}
-
 .glow {
-  box-shadow: 0 0 10px var(--glow-color);
-}
-
-body.dark-theme .glow {
   box-shadow: 0 0 10px var(--glow-color);
 }
 
