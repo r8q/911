@@ -115,8 +115,23 @@ document.querySelectorAll('.item').forEach(item => {
   });
 });
 
-// PDF indirme işlevi
-function downloadPDF() {
+function showFilenameModal() {
+  document.getElementById('filenameModal').style.display = 'block';
+}
+
+function closeFilenameModal() {
+  document.getElementById('filenameModal').style.display = 'none';
+}
+
+function downloadTable() {
+  const name = document.getElementById('filename').value;
+  if (!name) {
+    alert("Dosya adı girmediniz. İşlem iptal edildi.");
+    return;
+  }
+
+  closeFilenameModal();
+
   const { jsPDF } = window.jspdf;
   const doc = new jsPDF();
 
@@ -126,16 +141,15 @@ function downloadPDF() {
   const data = [];
   document.querySelectorAll('.container tbody tr').forEach(row => {
       const name = row.querySelector('td:nth-child(1)').textContent.trim();
-      const role = row.querySelector('td:nth-child(2)').textContent.trim();
-      const colleagues = row.querySelector('td:nth-child(3)').textContent.trim();
-      const details = row.querySelector('td:nth-child(4)').textContent.trim();
+      const colleagues = row.querySelector('td:nth-child(2)').textContent.trim();
+      const details = row.querySelector('td:nth-child(3)').textContent.trim();
       // Clean up the data to remove any unwanted characters or spaces
-      data.push([name.replace(/\s+/g, ' ').trim(), role.replace(/\s+/g, ' ').trim(), colleagues.replace(/\s+/g, ' ').trim(), details.replace(/\s+/g, ' ').trim()]);
+      data.push([name.replace(/\s+/g, ' ').trim(), colleagues.replace(/\s+/g, ' ').trim(), details.replace(/\s+/g, ' ').trim()]);
   });
 
-   // Tabloyu PDF'e ekle
-   doc.autoTable({
-    head: [['Adı', 'Görevi', 'Birlikte Çalışabileceği Kişiler', 'Detaylar']],
+  // Tabloyu PDF'e ekle
+  doc.autoTable({
+    head: [['Kişi', 'Birlikte Çalışabileceği Kişiler', 'İş Birliği Detayları']],
     body: data,
     styles: {
         // Adjusting cell padding for better readability
@@ -148,13 +162,74 @@ function downloadPDF() {
     html: 'utf-8',
     // Adjust column widths to prevent text overflow
     columnStyles: {
-        0: {cellWidth: 30}, // Adı
-        1: {cellWidth: 20}, // Görevi
-        2: {cellWidth: 60}, // Birlikte Çalışabileceği Kişiler
-        3: {cellWidth: 70}  // Detaylar
+        0: {cellWidth: 50}, // Kişi
+        1: {cellWidth: 60}, // Birlikte Çalışabileceği Kişiler
+        2: {cellWidth: 80}  // İş Birliği Detayları
     }
-});
-  // PDF'i indir
-  doc.save("liste.pdf");
+  });
 
+  // PDF'i indir
+  doc.save(`${name}-gorevlendirme.pdf`);
+
+  // HTML'i indir
+  let htmlData = `
+    <html>
+    <head>
+      <style>
+        table {
+          width: 100%;
+          border-collapse: collapse;
+        }
+        th, td {
+          border: 1px solid #ddd;
+          padding: 8px;
+        }
+        th {
+          background-color: #f2f2f2;
+          text-align: left;
+        }
+        tr:nth-child(even) {
+          background-color: #f9f9f9;
+        }
+        tr:hover {
+          background-color: #ddd;
+        }
+      </style>
+    </head>
+    <body>
+      <table>
+        <thead>
+          <tr>
+            <th>Kişi</th>
+            <th>Birlikte Çalışabileceği Kişiler</th>
+            <th>İş Birliği Detayları</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${data.map(row => `
+            <tr>
+              <td>${row[0]}</td>
+              <td>${row[1]}</td>
+              <td>${row[2]}</td>
+            </tr>
+          `).join('')}
+        </tbody>
+      </table>
+    </body>
+    </html>
+  `;
+  let blob = new Blob([htmlData], { type: 'text/html' });
+  let a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = `${name}-gorevlendirme.html`;
+  a.click();
+}
+
+function htmlKaydet() {
+  let data = document.querySelector('.container').outerHTML;
+  let blob = new Blob([data], { type: 'text/html' });
+  let a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'tablolar.html';
+  a.click();
 }
