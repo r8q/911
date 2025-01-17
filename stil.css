@@ -1,93 +1,204 @@
+:root, :root.light {
+  --color-bg: #ffffff;
+  --color-fg: #000000;
+}
+
+:root.dark {
+  --color-bg: #121212;
+  --color-fg: #e0e0e0;
+  --panel-bg: #1e1e1e;
+  --panel-border: #333333;
+  --input-bg: #2c2c2c;
+  --input-border: #444444;
+  --input-color: #e0e0e0;
+  --button-bg: #3a3a3a;
+  --button-hover-bg: #555555;
+  --table-header-bg: #333333;
+  --table-border: #444444;
+  --glow-color: rgba(255, 255, 255, 0.5);
+}
+
 body {
-    font-size: 12px; /* Yazı fontlarını küçült */
-    line-height: 1.5;
-    margin: 0;
-    padding: 0;
-    font-family: Arial, sans-serif;
-    background-color: #f0f0f0; /* Arka plan rengi */
+  font-size: 12px; /* Yazı fontlarını küçült */
+  line-height: 1.5;
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+  background-color: var(--color-bg);
+  color: var(--color-fg);
+  transition: background-color 0.3s, color 0.3s;
 }
 
 .container {
-    max-width: 800px; /* Konteyner genişliğini küçült */
-    margin: 20px auto;
-    padding: 10px;
-    background-color: #FFFFFF; /* Beyaz arka plan */
-    border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  max-width: 800px; /* Konteyner genişliğini küçült */
+  margin: 20px auto;
+  padding: 10px;
+  background-color: var(--color-bg);
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+body.dark-theme .container {
+  background-color: var(--color-bg);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
 }
 
 .add-item-panel {
-    margin-bottom: 20px;
-    padding: 10px;
-    background-color: #e3f2fd; /* Panel arka plan rengi */
-    border: 1px solid #90caf9; /* Panel kenarlık rengi */
-    border-radius: 10px;
+  margin-bottom: 20px;
+  padding: 10px;
+  background-color: #e3f2fd; /* Panel arka plan rengi */
+  border: 1px solid #90caf9; /* Panel kenarlık rengi */
+  border-radius: 10px;
+}
+
+body.dark-theme .add-item-panel {
+  background-color: var(--panel-bg);
+  border-color: var(--panel-border);
 }
 
 .add-item-panel h2 {
-    font-size: 16px; /* Başlık boyutunu küçült */
-    margin-bottom: 10px;
-    color: #0d47a1; /* Başlık rengi */
+  font-size: 16px; /* Başlık boyutunu küçült */
+  margin-bottom: 10px;
+  color: #0d47a1; /* Başlık rengi */
+}
+
+body.dark-theme .add-item-panel h2,
+body.dark-theme .add-item-panel label,
+body.dark-theme .add-item-panel input,
+body.dark-theme .add-item-panel select,
+body.dark-theme .add-item-panel textarea,
+body.dark-theme th,
+body.dark-theme td {
+  color: var(--color-fg);
 }
 
 .add-item-panel label {
-    display: block;
-    margin: 5px 0;
-    font-size: 12px; /* Etiket boyutunu küçült */
-    color: #0d47a1; /* Etiket rengi */
+  display: block;
+  margin: 5px 0;
+  font-size: 12px; /* Etiket boyutunu küçült */
+  color: #0d47a1; /* Etiket rengi */
+}
+
+body.dark-theme .add-item-panel label {
+  color: var(--color-fg);
 }
 
 .add-item-panel input,
 .add-item-panel select,
 .add-item-panel textarea {
-    width: 100%;
-    padding: 5px;
-    margin-bottom: 10px;
-    font-size: 12px; /* Girdi boyutunu küçült */
-    border: 1px solid #90caf9; /* Girdi kenarlık rengi */
-    border-radius: 5px;
-    font-family: 'Courier New', Courier, monospace; /* Özel font */
-    background-color: #ffffff; /* Girdi arka plan rengi */
-    color: #0d47a1; /* Girdi yazı rengi */
+  width: 100%;
+  padding: 5px;
+  margin-bottom: 10px;
+  font-size: 12px; /* Girdi boyutunu küçült */
+  border: 1px solid #90caf9; /* Girdi kenarlık rengi */
+  border-radius: 5px;
+  font-family: 'Courier New', Courier, monospace; /* Özel font */
+  background-color: #ffffff; /* Girdi arka plan rengi */
+  color: #0d47a1; /* Girdi yazı rengi */
+}
+
+body.dark-theme .add-item-panel input,
+body.dark-theme .add-item-panel select,
+body.dark-theme .add-item-panel textarea {
+  background-color: var(--input-bg);
+  border-color: var(--input-border);
+  color: var(--input-color);
 }
 
 button {
-    padding: 5px 10px; /* Buton boyutlarını küçült */
-    font-size: 12px; /* Buton yazı boyutlarını küçült */
-    cursor: pointer;
-    background-color: #4CAF50; /* Buton rengi */
-    color: white;
-    border: none;
-    border-radius: 5px;
+  padding: 5px 10px; /* Buton boyutlarını küçült */
+  font-size: 12px; /* Buton yazı boyutlarını küçült */
+  cursor: pointer;
+  background-color: #4CAF50; /* Buton rengi */
+  color: white;
+  border: none;
+  border-radius: 5px;
+}
+
+body.dark-theme button {
+  background-color: var(--button-bg);
 }
 
 button:hover {
-    background-color: #45a049; /* Hover rengi */
+  background-color: #45a049; /* Hover rengi */
+}
+
+body.dark-theme button:hover {
+  background-color: var(--button-hover-bg);
 }
 
 table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-bottom: 20px;
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
 }
 
 th, td {
-    padding: 8px;
-    text-align: left;
-    border-bottom: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
 }
 
 th {
-    background-color: #0d47a1; /* Başlık arka plan rengi */
-    color: white; /* Başlık yazı rengi */
-    font-size: 12px; /* Başlık boyutunu küçült */
+  background-color: #0d47a1; /* Başlık arka plan rengi */
+  color: white; /* Başlık yazı rengi */
+  font-size: 12px; /* Başlık boyutunu küçült */
+}
+
+body.dark-theme th {
+  background-color: var(--table-header-bg);
 }
 
 td {
-    font-size: 12px; /* Hücre boyutunu küçült */
-    color: #0d47a1; /* Hücre yazı rengi */
+  font-size: 12px; /* Hücre boyutunu küçült */
+  color: #0d47a1; /* Hücre yazı rengi */
+}
+
+body.dark-theme td {
+  border-bottom: 1px solid var(--table-border);
 }
 
 .glow {
-    box-shadow: 0 0 10px rgba(255, 255, 0, 0.5);
+  box-shadow: 0 0 10px rgba(255, 255, 0, 0.5);
+}
+
+body.dark-theme .glow {
+  box-shadow: 0 0 10px var(--glow-color);
+}
+
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+.modal-content {
+  background-color: #fefefe;
+  margin: 15% auto; /* 15% from the top and centered */
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%; /* Could be more or less, depending on screen size */
+  max-width: 400px; /* Maximum width */
+  border-radius: 10px;
+}
+
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
 }
